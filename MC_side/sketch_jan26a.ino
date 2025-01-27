@@ -130,10 +130,8 @@ void EEPROM_Clear(void) {
 
 // Send back all stored data from EEPROM
 void SendBackStoredData(void) {
-    UART_SendString("Sending back stored data:\n");
     for (uint16_t i = 0; i < eepromIndex; i++) {
         char data = EEPROM_Read(i);  // Read data from EEPROM
         UART_Transmit(data);         // Send data back to PC
     }
-    UART_SendString("\nData transmission complete!\n");
 }

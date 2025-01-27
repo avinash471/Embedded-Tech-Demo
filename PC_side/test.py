@@ -1,14 +1,24 @@
 import serial
 import time
+import os
 
 try:
     print("Starting script...")
-    ser = serial.Serial('COM8', 9600, timeout=5)  # Replace COM8 with your port
+    
+    ser = serial.Serial('COM9', 9600, timeout=5)
     print(f"Connected to {ser.port} at {ser.baudrate} baud")
 
-    # Text to send
-    text_to_send = """Finance Minister Arun Jaitley Tuesday hit out at former RBI governor Raghuram Rajan for predicting that the next banking crisis would be triggered by MSME lending, saying postmortem is easier than taking action when it was required. Rajan, who had as the chief economist at IMF warned of impending financial crisis of 2008, in a note to a parliamentary committee warned against ambitious credit targets and loan waivers, saying that they could be the sources of next banking crisis. Government should focus on sources of the next crisis, not just the last one. 
-    In particular, government should refrain from setting ambitious credit targets or waiving loans. Credit targets are sometimes achieved by abandoning appropriate due diligence, creating the environment for future NPAs," Rajan said in the note." Both MUDRA loans as well as the Kisan Credit Card, while popular, have to be examined more closely for potential credit risk. Rajan, who was RBI governor for three years till September 2016, is currently"""
+    # Path to the text file
+    file_path = "data.txt" 
+
+    # Check if the file exists
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"File '{file_path}' not found in the current folder.")
+
+    # Read the text from the file
+    with open(file_path, 'r', encoding='utf-8') as file:
+        text_to_send = file.read()
+
     total_bits_sent = 0
     total_bits_received = 0
 
@@ -66,6 +76,9 @@ try:
     # Print received data (optional)
     print("\nReceived Data:")
     print(received_data)
+
+except FileNotFoundError as e:
+    print(f"File error: {e}")
 
 except serial.SerialException as e:
     print(f"Serial error: {e}")
