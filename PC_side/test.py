@@ -5,7 +5,7 @@ import os
 try:
     print("Starting script...")
     
-    ser = serial.Serial('COM9', 9600, timeout=5)
+    ser = serial.Serial('COM9', 2400, timeout=5)
     print(f"Connected to {ser.port} at {ser.baudrate} baud")
 
     # Path to the text file
